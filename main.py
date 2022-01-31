@@ -72,6 +72,42 @@ def create_tables():
             conn.close()
 
 
+def insert_data():
+    '''Inserting data into the PostGreSQL Database'''
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        cur.execute('''
+            INSERT INTO account (email) VALUES 
+            ('steve.jobs@apple.com'),
+            ('Froff1978@dayrep.com'),
+            ('mgreen@comcast.net'),
+            ('heroine@hotmail.com'),
+            ('miyop@att.net'),
+            ('jfriedl@icloud.com'),
+            ('thassine@msn.com'),
+            ('tarreau@verizon.net'),
+            ('danzigism@me.com'),
+            ('ovprit@yahoo.ca'),
+            ('quinn@outlook.com'),
+            ('pgottsch@gmail.com'),
+            ('ajlitt@live.com'),
+            ('rnewman@mac.com');
+            ''')
+
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+
+
 if __name__=='__main__':
     connect()
     create_tables()
+    insert_data()
