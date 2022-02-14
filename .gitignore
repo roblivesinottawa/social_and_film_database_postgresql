@@ -1,1 +1,7 @@
 database.ini
+postgres_workplace/bin
+postgres_workplace/include
+postgres_workplace/lib
+postgres_workplace/database.ini
+pyvenv.cfg
+postgres_workplace/main.py
