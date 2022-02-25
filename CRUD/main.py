@@ -187,6 +187,23 @@ class Game:
             print(error)
         finally:
             [self.conn.close() if self.conn is not None else None]
+
+    def drop_table(self, table):
+        '''drops table from the database'''
+        self.conn = None
+        try:
+            params = config()
+            self.conn = psycopg2.connect(**params)
+            self.cur = self.conn.cursor()
+            query = f"""DROP TABLE {table}"""
+            self.cur.execute(query)
+            self.conn.commit()
+            print('table dropped successfully.')
+            self.cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            [self.conn.close() if self.conn is not None else None]
             
 
 db = Game()
@@ -216,4 +233,7 @@ db.connect()
 
 # ALTER
 # db.alter_table_rename('information', {'newname': 'information_new'})
+
+# DROP
+db.drop_table('information_new')
         
